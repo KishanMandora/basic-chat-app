@@ -1,21 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Socket.io Chat</title>
-    <!-- add meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Socket.io Chat" />
-    <meta name="author" content="Kishan Mandora">
+    <meta name="author" content="Kishan Mandora" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="favicon.ico" />
+    <title>Chat App</title>
   </head>
   <body>
-    <ul id="messages"></ul>
-    <form id="form" action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
+    <div class="chat-container">
+      <header>Random Group</header>
+      <ul id="messages"></ul>
+      <form id="chat-form">
+        <input id="m" placeholder="Type a message..." autocomplete="off" />
+        <button>Send</button>
+      </form>
+    </div>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="/app.js">
-    </script>
+    <script src="/app.js"></script>
   </body>
 </html>

@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
-  var socket = io();
-  var form = document.querySelector("form");
-  var m = document.getElementById("m");
-  var messages = document.getElementById("messages");
+  const socket = io();
+  const form = document.querySelector("form");
+  const m = document.getElementById("m");
+  const messages = document.getElementById("messages");
 
   form.addEventListener("submit", function (event) {
     event.preventDefault();
@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   socket.on("chat message", function (msg) {
-    var li = document.createElement("li");
+    const li = document.createElement("li");
     li.textContent = msg;
     messages.appendChild(li);
   });
