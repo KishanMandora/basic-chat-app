@@ -34,6 +34,17 @@ const onePieceCharacters = [
   "Jinbe",
 ];
 
+const emojis = {
+  react: "⚛️",
+  hey: "👋",
+  fire: "🔥",
+  woah: "😮",
+  lol: "😂",
+  like: "👍",
+  love: "💛",
+  congratulations: "🎉",
+};
+
 let username;
 const userId = crypto.randomUUID();
 
@@ -45,14 +56,30 @@ closeModalBtn.onclick = function () {
   username = userName.value;
   chatUserTitle.appendChild(chatTitle);
 
-  console.log("clicked", userName.value);
   modal.style.display = "none";
 };
 
 form.addEventListener("submit", function (event) {
   event.preventDefault();
   if (!m.value.trim()) return;
-  socket.emit("chat message", { user: username, message: m.value, id: userId });
+
+  const senderMsg = m.value.split(" ");
+  const msg = senderMsg.map((word) => {
+    const lowercaseWord = word.toLowerCase();
+
+    if (lowercaseWord in emojis) {
+      return emojis[lowercaseWord];
+    }
+    return word;
+  });
+
+  const emojifiedSentence = msg.join(" ");
+
+  socket.emit("chat message", {
+    user: username,
+    message: emojifiedSentence,
+    id: userId,
+  });
   m.value = "";
 });
 
