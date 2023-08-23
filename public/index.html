@@ -10,14 +10,65 @@
     <title>Chat App</title>
   </head>
   <body>
-    <div class="chat-container">
-      <header>Random Group</header>
-      <ul id="messages"></ul>
-      <form id="chat-form">
-        <input id="m" placeholder="Type a message..." autocomplete="off" />
-        <button>Send</button>
-      </form>
-    </div>
+    <section class="main-container">
+      <div class="chat-container">
+        <header class="chat-title">
+          <h1>Grand Line Group</h1>
+        </header>
+        <ul id="messages">
+          <li class="message-container">
+            <div class="chat-pp">
+              <span class="pp-initials"> MA </span>
+            </div>
+            <div class="chat-msg msg-secondary">
+              <span class="chat-name"> Magma Akainu </span>
+              <p class="chat-message">Hello, I am Akainu.</p>
+            </div>
+          </li>
+          <li class="message-container">
+            <div class="chat-pp">
+              <span class="pp-initials"> IK </span>
+            </div>
+            <div class="chat-msg msg-primary">
+              <span class="chat-name"> Ice Kuzan </span>
+              <p class="chat-message">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure
+                quaerat voluptatum soluta blanditiis vero, porro aliquam quam
+                dolores provident animi tenetur inventore est, aliquid rerum
+                corporis nobis dolorum possimus! Eius, maxime qui fuga ipsam,
+                maiores quasi est delectus voluptatum molestiae debitis quisquam
+                laborum, aperiam esse quae facilis officia sunt unde!
+              </p>
+            </div>
+          </li>
+        </ul>
+        <form id="chat-form">
+          <input id="m" placeholder="Type a message..." autocomplete="off" />
+          <button>
+            <img src="./icons/send.svg" alt="Send" class="send-icon" />
+          </button>
+        </form>
+      </div>
+      <aside class="left-sidebar">
+        <div class="sidebar-title">
+          <h3>Chat Members</h3>
+        </div>
+        <ul class="members-list">
+          <li class="member">
+            <span class="member-name"> Magma Akainu </span>
+            <div class="member-initials">
+              <span class="initials-text">MA</span>
+            </div>
+          </li>
+          <li class="member">
+            <span class="member-name"> Ice Kuzan </span>
+            <div class="member-initials">
+              <span class="initials-text">IK</span>
+            </div>
+          </li>
+        </ul>
+      </aside>
+    </section>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/app.js"></script>
   </body>
