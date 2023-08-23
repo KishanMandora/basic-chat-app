@@ -2,6 +2,8 @@ const socket = io();
 
 const userName = document.getElementById("username");
 const chatUserTitle = document.getElementById("chat-title");
+const emojiModeBtn = document.getElementById("emoji-mode");
+const textModeBtn = document.getElementById("text-mode");
 const modal = document.getElementById("signinModal");
 const closeModalBtn = document.getElementById("sign-in-btn");
 const guestSignInBtn = document.getElementById("guest-sign-in");
@@ -47,52 +49,71 @@ const emojis = {
 
 let username;
 const userId = crypto.randomUUID();
+let chatMode = "emoji";
+
+emojiModeBtn.addEventListener("click", function () {
+  if (chatMode === "emoji") return;
+
+  emojiModeBtn.classList.add("active-switch");
+  textModeBtn.classList.remove("active-switch");
+  chatMode = "emoji";
+});
+
+textModeBtn.addEventListener("click", function () {
+  if (chatMode === "text") return;
+
+  textModeBtn.classList.add("active-switch");
+  emojiModeBtn.classList.remove("active-switch");
+  chatMode = "text";
+});
 
 closeModalBtn.onclick = function () {
   if (!userName.value.trim()) return;
 
-  const chatTitle = document.createElement("h1");
-  chatTitle.textContent = userName.value;
-  username = userName.value;
-  chatUserTitle.appendChild(chatTitle);
+  chatUserTitle.innerText = userName.value;
 
   modal.style.display = "none";
 };
+
+guestSignInBtn.addEventListener("click", function () {
+  username =
+    devilFruits[Math.floor(Math.random() * 10)] +
+    " " +
+    onePieceCharacters[Math.floor(Math.random() * 10)];
+
+  chatUserTitle.innerText = username;
+
+  modal.style.display = "none";
+});
 
 form.addEventListener("submit", function (event) {
   event.preventDefault();
   if (!m.value.trim()) return;
 
-  const senderMsg = m.value.split(" ");
-  const msg = senderMsg.map((word) => {
-    const lowercaseWord = word.toLowerCase();
+  const inputMsg = m.value.split(" ");
+  let sendersMsg;
 
-    if (lowercaseWord in emojis) {
-      return emojis[lowercaseWord];
-    }
-    return word;
-  });
+  if (chatMode === "emoji") {
+    const msg = inputMsg.map((word) => {
+      const lowercaseWord = word.toLowerCase();
 
-  const emojifiedSentence = msg.join(" ");
+      if (lowercaseWord in emojis) {
+        return emojis[lowercaseWord];
+      }
+      return word;
+    });
+
+    sendersMsg = msg.join(" ");
+  } else {
+    sendersMsg = m.value;
+  }
 
   socket.emit("chat message", {
     user: username,
-    message: emojifiedSentence,
+    message: sendersMsg,
     id: userId,
   });
   m.value = "";
-});
-
-guestSignInBtn.addEventListener("click", function () {
-  const chatTitle = document.createElement("h1");
-  username =
-    devilFruits[Math.floor(Math.random() * 10)] +
-    " " +
-    onePieceCharacters[Math.floor(Math.random() * 10)];
-  chatTitle.textContent = username;
-  chatUserTitle.appendChild(chatTitle);
-
-  modal.style.display = "none";
 });
 
 socket.on("chat message", function (data) {

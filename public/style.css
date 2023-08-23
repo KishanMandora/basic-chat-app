@@ -109,6 +109,9 @@ header {
 }
 
 .chat-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   height: 3.5rem;
   padding: 1rem;
   border-bottom: 2px solid #281d33;
@@ -117,6 +120,34 @@ header {
 .chat-title h1 {
   font-weight: 500;
   font-size: 1.5rem;
+}
+
+.switch-container {
+  display: flex;
+  align-items: center;
+}
+
+.switch-btn:nth-child(1) {
+  border-radius: .25rem 0 0 .25rem;
+}
+
+.switch-btn:nth-child(2) {
+  border-radius: 0 .25rem .25rem 0;
+}
+
+.switch-btn {
+  width: 6.5rem;
+  padding: .5rem;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  background-color: inherit;
+  border: 1px solid #8e64e3;
+}
+
+.active-switch {
+  background-color: #8e64e3;
 }
 
 #messages {
