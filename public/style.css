@@ -153,7 +153,7 @@ header {
   width: 90%;
   margin-bottom: .625rem;
   padding: .125rem .75rem .5rem .75rem;
-  border-radius: .5rem;
+  border-radius: 0 .5rem .5rem .5rem;
   word-break: break-word;
 }
 
@@ -219,6 +219,96 @@ header {
   width: 1.125rem;
 }
 
+
+/* Modal Styles */
+.modal {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index: 10;
+}
+
+.modal-content {
+  padding: .5rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #131421;
+  color: #7091af;
+  width: max-content;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.modal-content h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.modal-content span {
+  font-size: .75rem;
+}
+
+.username-input {
+  margin: 1rem 0 0.5rem 0;
+  padding: 0.5rem;
+  width: 100%;
+  background: inherit;
+  height: 2rem;
+  border: 1px solid #281d33;
+  border-radius: .5rem;
+  color: #a09ea8;
+  outline: none;
+  transition: border 0.3s ease;
+}
+
+.username-input:focus {
+  border: 1px solid #7a4bd8;
+}
+
+.btns-container {
+  margin-top: 1rem;
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+}
+
+
+button#sign-in-btn {
+  width: 50%;
+  padding: .5rem;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  background-color: #8e64e3;
+}
+
+button#sign-in-btn:hover {
+  background-color: #6b3fc3;
+}
+
+button#guest-sign-in {
+  width: 50%;
+  padding: .5rem;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  background-color: inherit;
+  border: 1px solid #8e64e3;
+}
+
+button#guest-sign-in:hover {
+  background-color: #1e1626;
+}
 
 @media screen and (max-width: 768px) {
   .chat-container {

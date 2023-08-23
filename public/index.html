@@ -10,11 +10,29 @@
     <title>Chat App</title>
   </head>
   <body>
+    <div class="modal" id="signinModal">
+      <div class="modal-content">
+        <h2>Welcome to Grand Line Chat</h2>
+        <span>Join the conversation and chat with active users.</span>
+
+        <input
+          id="username"
+          type="text"
+          placeholder="Your Name"
+          class="username-input"
+          autofocus
+        />
+
+        <div class="btns-container">
+          <button id="guest-sign-in">Guest Sign In</button>
+          <button id="sign-in-btn">Sign In</button>
+        </div>
+      </div>
+    </div>
+
     <section class="main-container">
       <div class="chat-container">
-        <header class="chat-title">
-          <h1>Grand Line Group</h1>
-        </header>
+        <header class="chat-title" id="chat-title"></header>
         <ul id="messages">
           <li class="message-container">
             <div class="chat-pp">
