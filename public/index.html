@@ -6,8 +6,8 @@
     <meta name="description" content="Socket.io Chat" />
     <meta name="author" content="Kishan Mandora" />
     <link rel="stylesheet" href="style.css" />
-    <link rel="icon" href="favicon.ico" />
-    <title>Chat App</title>
+    <link rel="icon" href="icons/chat.png" />
+    <title>Grand Line Chat</title>
   </head>
   <body>
     <div class="modal" id="signinModal">
@@ -27,6 +27,18 @@
           <button id="guest-sign-in">Guest Sign In</button>
           <button id="sign-in-btn">Sign In</button>
         </div>
+      </div>
+    </div>
+
+    <div class="help-modal" id="help-modal">
+      <div class="help-modal-content">
+        <h3>Available Commands</h3>
+        <hr />
+        <p>/help - Shows all the commands</p>
+        <p>/random - Generates a random number in your chat</p>
+        <p>/clear - Clears the chat</p>
+        <hr />
+        <button class="close-help" id="close-help">Close</button>
       </div>
     </div>
 
@@ -76,17 +88,17 @@
         <div class="sidebar-title">
           <h3>Chat Members</h3>
         </div>
-        <ul class="members-list">
+        <ul class="members-list" id="members-list">
           <li class="member">
-            <span class="member-name"> Magma Akainu </span>
+            <span class="member-name"> Fire Fist Ace </span>
             <div class="member-initials">
-              <span class="initials-text">MA</span>
+              <span class="initials-text">FF</span>
             </div>
           </li>
           <li class="member">
-            <span class="member-name"> Ice Kuzan </span>
+            <span class="member-name"> Flame Sabo </span>
             <div class="member-initials">
-              <span class="initials-text">IK</span>
+              <span class="initials-text">FS</span>
             </div>
           </li>
         </ul>

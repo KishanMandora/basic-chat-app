@@ -285,7 +285,8 @@ header {
   z-index: 10;
 }
 
-.modal-content {
+.modal-content,
+.help-modal-content {
   padding: .5rem;
   position: absolute;
   top: 50%;
@@ -305,6 +306,55 @@ header {
 
 .modal-content span {
   font-size: .75rem;
+}
+
+.help-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(19, 20, 33, .4);
+  z-index: 10;
+}
+
+.help-modal-content {
+  background-color: black;
+  color: white;
+  width: 25rem;
+}
+
+.help-modal-content hr {
+  border: 1px solid #281d33;
+  margin: 1rem 0;
+}
+
+.help-modal-content h3 {
+  font-weight: 500;
+  font-size: 1.25rem;
+}
+
+.help-modal-content p {
+  font-size: .875rem;
+  margin: .25rem 0;
+  text-align: left;
+}
+
+.close-help {
+  margin: 0 0 0 20rem;
+  padding: .5rem;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  background-color: inherit;
+  border: 1px solid #8e64e3;
+}
+
+.close-help:hover {
+  background-color: #1e1626;
 }
 
 .username-input {
