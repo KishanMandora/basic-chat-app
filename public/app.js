@@ -35,6 +35,7 @@ const onePieceCharacters = [
 ];
 
 let username;
+const userId = crypto.randomUUID();
 
 closeModalBtn.onclick = function () {
   if (!userName.value.trim()) return;
@@ -51,7 +52,7 @@ closeModalBtn.onclick = function () {
 form.addEventListener("submit", function (event) {
   event.preventDefault();
   if (!m.value.trim()) return;
-  socket.emit("chat message", m.value);
+  socket.emit("chat message", { user: username, message: m.value, id: userId });
   m.value = "";
 });
 
@@ -67,7 +68,7 @@ guestSignInBtn.addEventListener("click", function () {
   modal.style.display = "none";
 });
 
-socket.on("chat message", function (msg) {
+socket.on("chat message", function (data) {
   const li = document.createElement("li");
   const chatPp = document.createElement("div");
   const ppInitials = document.createElement("span");
@@ -75,21 +76,29 @@ socket.on("chat message", function (msg) {
   const chatName = document.createElement("span");
   const chatMessage = document.createElement("p");
 
-  const splitUsername = username.split(" ");
+  const splitUsername = data.user.split(" ");
+
+  const isSameUser = data.id === userId;
 
   ppInitials.textContent =
     splitUsername.length > 1
       ? splitUsername[0][0] + splitUsername[1][0]
       : splitUsername[0][0];
 
-  chatName.textContent = username;
-  chatMessage.textContent = msg;
+  chatName.textContent = data.user;
+  chatMessage.textContent = data.message;
   ppInitials.classList.add("pp-initials");
-  chatPp.classList.add("chat-pp");
-  chatMsg.classList.add("chat-msg", "msg-secondary");
+  chatPp.classList.add("chat-pp", isSameUser ? "margin-left" : "margin-right");
+  chatMsg.classList.add(
+    "chat-msg",
+    isSameUser ? "msg-primary" : "msg-secondary",
+    isSameUser ? "border-radius-right0" : "border-radius-left0"
+  );
   chatName.classList.add("chat-name");
   chatMessage.classList.add("chat-message");
-  li.classList.add("message-container");
+  li.classList.add(
+    isSameUser ? "message-container-reverse" : "message-container"
+  );
 
   chatPp.appendChild(ppInitials);
   chatMsg.appendChild(chatName);
