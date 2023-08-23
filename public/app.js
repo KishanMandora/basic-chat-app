@@ -106,4 +106,5 @@ socket.on("chat message", function (data) {
   li.appendChild(chatPp);
   li.appendChild(chatMsg);
   messages.appendChild(li);
+  li.scrollIntoView();
 });
