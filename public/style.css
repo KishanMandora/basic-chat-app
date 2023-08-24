@@ -183,6 +183,7 @@ header {
 }
 
 .chat-pp {
+  padding: 1rem;
   height: 2.5rem;
   width: 2.5rem;
   border-radius: 50%;
@@ -425,6 +426,7 @@ button#guest-sign-in:hover {
   background-color: #1e1626;
 }
 
+
 @media screen and (max-width: 768px) {
   .chat-container {
     width: 100%;
@@ -434,6 +436,18 @@ button#guest-sign-in:hover {
 
   .left-sidebar {
     display: none;
+  }
+
+  .switch-btn {
+    width: 4rem;
+  }
+
+  .mobile-hidden {
+    display: none;
+  }
+
+  .chat-title h1 {
+    font-size: 1.125rem;
   }
 
   header {
