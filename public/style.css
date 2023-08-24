@@ -157,6 +157,15 @@ header {
   list-style-type: none;
 }
 
+.action-message {
+  text-align: center;
+  color: #a09ea8;
+  font-weight: 300;
+  font-style: italic;
+  font-size: .75rem;
+  margin: 0.25rem 0 0.75rem 0;
+}
+
 .message-container {
   display: flex;
   max-width: 80%;

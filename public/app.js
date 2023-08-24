@@ -37,7 +37,7 @@ const onePieceCharacters = [
   "Jinbe",
 ];
 
-const commands = ["/help", "/random", "/clear"];
+const commands = ["/help", "/random", "/clear", "/rem", "/calc"];
 
 const emojis = {
   react: "⚛️",
@@ -53,6 +53,7 @@ const emojis = {
 let username;
 const userId = crypto.randomUUID();
 let chatMode = "emoji";
+const remObj = {};
 
 emojiModeBtn.addEventListener("click", function () {
   if (chatMode === "emoji") return;
@@ -100,7 +101,7 @@ function runHelpCommand() {
   helpModal.style.display = "block";
 }
 
-function runRandomCommand() {
+function addDetailsToMessage(username, message) {
   const li = document.createElement("li");
   const chatPp = document.createElement("div");
   const ppInitials = document.createElement("span");
@@ -116,9 +117,7 @@ function runRandomCommand() {
       : splitUsername[0][0];
 
   chatName.textContent = username;
-  chatMessage.textContent = `Here's a random number: ${Math.floor(
-    Math.random() * 100000
-  )}`;
+  chatMessage.textContent = message;
   ppInitials.classList.add("pp-initials");
   chatPp.classList.add("chat-pp", "margin-left");
   chatMsg.classList.add("chat-msg", "msg-primary", "border-radius-right0");
@@ -135,8 +134,54 @@ function runRandomCommand() {
   li.scrollIntoView();
 }
 
+function runRandomCommand() {
+  const message = `Here's a random number: ${Math.floor(
+    Math.random() * 100000
+  )}`;
+
+  addDetailsToMessage(username, message);
+}
+
 function runClearCommand() {
   messages.innerHTML = "";
+}
+
+function runRemCommand(value) {
+  const splitValue = value.trim().split(" ");
+  console.log(splitValue);
+
+  if (splitValue.length <= 1) {
+    console.log("No key provided");
+    const li = document.createElement("li");
+    li.innerText = "Please provide a name and value";
+    li.classList.add("action-message");
+    messages.appendChild(li);
+    return;
+  } else if (splitValue.length <= 2 && !remObj[splitValue[1]]) {
+    const li = document.createElement("li");
+    li.innerText = "Please provide a Value";
+    li.classList.add("action-message");
+    messages.appendChild(li);
+    return;
+  } else if (remObj[splitValue[1]]) {
+    addDetailsToMessage(username, remObj[splitValue[1]]);
+    return;
+  }
+
+  remObj[splitValue[1]] = splitValue[2];
+  const li = document.createElement("li");
+  li.innerText = `${splitValue[1]} has been set to ${splitValue[2]}`;
+  li.classList.add("action-message");
+  messages.appendChild(li);
+  console.log(remObj);
+}
+
+function runCalcCommand(value) {
+  const calcStr = value.substring(6);
+  const calculatedValue = eval(calcStr);
+  const message = `The answer is ${calculatedValue}`;
+  addDetailsToMessage(username, message);
+  return;
 }
 
 form.addEventListener("submit", function (event) {
@@ -149,16 +194,24 @@ form.addEventListener("submit", function (event) {
   if (isCommand) {
     switch (inputMsg[0]) {
       case "/help":
-        m.value = "";
         runHelpCommand();
+        m.value = "";
         return;
       case "/random":
-        m.value = "";
         runRandomCommand();
+        m.value = "";
         return;
       case "/clear":
-        m.value = "";
         runClearCommand();
+        m.value = "";
+        return;
+      case "/rem":
+        runRemCommand(m.value);
+        m.value = "";
+        return;
+      case "/calc":
+        runCalcCommand(m.value);
+        m.value = "";
         return;
       default:
         break;
