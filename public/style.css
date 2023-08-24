@@ -42,6 +42,7 @@ body {
   width: 30%;
   height: 100%;
   border-left: 1px solid #281d33;
+  overflow: scroll;
 }
 
 .sidebar-title {
@@ -50,6 +51,9 @@ body {
   padding: 1rem 0;
   text-align: center;
   border-bottom: 2px solid #7a4bd8;
+  position: sticky;
+  top: 0;
+  background: #131421;
 }
 
 .sidebar-title h3 {
