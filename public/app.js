@@ -139,6 +139,13 @@ function addDetailsToMessage(username, message) {
   li.scrollIntoView();
 }
 
+function addActionMessage(message) {
+  const li = document.createElement("li");
+  li.innerText = message;
+  li.classList.add("action-message");
+  messages.appendChild(li);
+}
+
 function runRandomCommand() {
   const message = `Here's a random number: ${Math.floor(
     Math.random() * 100000
@@ -156,17 +163,10 @@ function runRemCommand(value) {
   console.log(splitValue);
 
   if (splitValue.length <= 1) {
-    console.log("No key provided");
-    const li = document.createElement("li");
-    li.innerText = "Please provide a name and value";
-    li.classList.add("action-message");
-    messages.appendChild(li);
+    addActionMessage("Please provide a name and value");
     return;
   } else if (splitValue.length <= 2 && !remObj[splitValue[1]]) {
-    const li = document.createElement("li");
-    li.innerText = "Please provide a Value";
-    li.classList.add("action-message");
-    messages.appendChild(li);
+    addActionMessage("Please provide a Value");
     return;
   } else if (remObj[splitValue[1]]) {
     addDetailsToMessage(username, remObj[splitValue[1]]);
@@ -174,11 +174,7 @@ function runRemCommand(value) {
   }
 
   remObj[splitValue[1]] = splitValue[2];
-  const li = document.createElement("li");
-  li.innerText = `${splitValue[1]} has been set to ${splitValue[2]}`;
-  li.classList.add("action-message");
-  messages.appendChild(li);
-  console.log(remObj);
+  addActionMessage(`${splitValue[1]} has been set to ${splitValue[2]}`);
 }
 
 function runCalcCommand(value) {
@@ -192,6 +188,11 @@ function runCalcCommand(value) {
 form.addEventListener("submit", function (event) {
   event.preventDefault();
   if (!m.value.trim()) return;
+
+  if (!username) {
+    addActionMessage("Please sign in to send messages, Refresh to sign in");
+    return;
+  }
 
   const inputMsg = m.value.split(" ");
   const isCommand = commands.includes(inputMsg[0]);
