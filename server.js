@@ -13,8 +13,16 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "/index.html"));
 });
 
+let activeUsersObj = {};
+
 io.on("connection", (socket) => {
   console.log("a user connected");
+
+  socket.on("register user", (username) => {
+    activeUsersObj[socket.id] = username; // Storing with socket id as key
+    io.emit("active users", Object.values(activeUsersObj)); // Send list of usernames
+  });
+
   socket.on("chat message", (data) => {
     io.emit("chat message", {
       user: data.user,
@@ -25,6 +33,8 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     console.log("user disconnected");
+    delete activeUsersObj[socket.id];
+    io.emit("active users", Object.values(activeUsersObj));
   });
 });
 

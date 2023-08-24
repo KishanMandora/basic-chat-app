@@ -11,6 +11,8 @@ const guestSignInBtn = document.getElementById("guest-sign-in");
 const form = document.querySelector("form");
 const m = document.getElementById("m");
 const messages = document.getElementById("messages");
+const membersCount = document.getElementById("members-count");
+const membersList = document.getElementById("members-list");
 
 const devilFruits = [
   "Ice",
@@ -77,12 +79,9 @@ closeModalBtn.onclick = function () {
   username = userName.value;
   chatUserTitle.innerText = userName.value;
 
-  modal.style.display = "none";
-};
+  socket.emit("register user", username);
 
-closeHelpModalBtn.onclick = function () {
-  const helpModal = document.getElementById("help-modal");
-  helpModal.style.display = "none";
+  modal.style.display = "none";
 };
 
 guestSignInBtn.addEventListener("click", function () {
@@ -92,9 +91,15 @@ guestSignInBtn.addEventListener("click", function () {
     onePieceCharacters[Math.floor(Math.random() * 10)];
 
   chatUserTitle.innerText = username;
+  socket.emit("register user", username);
 
   modal.style.display = "none";
 });
+
+closeHelpModalBtn.onclick = function () {
+  const helpModal = document.getElementById("help-modal");
+  helpModal.style.display = "none";
+};
 
 function runHelpCommand() {
   const helpModal = document.getElementById("help-modal");
@@ -282,4 +287,38 @@ socket.on("chat message", function (data) {
   li.appendChild(chatMsg);
   messages.appendChild(li);
   li.scrollIntoView();
+});
+
+socket.on("active users", function (users) {
+  membersCount.innerText = users.length;
+
+  console.log("list is", membersList.children);
+
+  while (membersList.firstChild) {
+    membersList.removeChild(membersList.firstChild);
+  }
+
+  users.forEach((user) => {
+    const member = document.createElement("li");
+    const memberName = document.createElement("span");
+    const memberInitials = document.createElement("div");
+    const initialsText = document.createElement("span");
+    memberName.innerText = user;
+    const splitUsername = user.split(" ");
+    initialsText.innerText =
+      splitUsername.length > 1
+        ? splitUsername[0][0] + splitUsername[1][0]
+        : splitUsername[0][0];
+
+    member.classList.add("member");
+    memberName.classList.add("member-name");
+    memberInitials.classList.add("member-initials");
+    initialsText.classList.add("initials-text");
+
+    member.appendChild(memberName);
+    member.appendChild(memberInitials);
+    memberInitials.appendChild(initialsText);
+
+    membersList.appendChild(member);
+  });
 });
