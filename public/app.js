@@ -73,6 +73,7 @@ textModeBtn.addEventListener("click", function () {
 closeModalBtn.onclick = function () {
   if (!userName.value.trim()) return;
 
+  username = userName.value;
   chatUserTitle.innerText = userName.value;
 
   modal.style.display = "none";
@@ -97,7 +98,6 @@ guestSignInBtn.addEventListener("click", function () {
 function runHelpCommand() {
   const helpModal = document.getElementById("help-modal");
   helpModal.style.display = "block";
-  console.log("run help command");
 }
 
 function runRandomCommand() {
