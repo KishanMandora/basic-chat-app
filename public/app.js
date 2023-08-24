@@ -8,7 +8,8 @@ const modal = document.getElementById("signinModal");
 const closeModalBtn = document.getElementById("sign-in-btn");
 const closeHelpModalBtn = document.getElementById("close-help");
 const guestSignInBtn = document.getElementById("guest-sign-in");
-const form = document.querySelector("form");
+const form = document.getElementById("chat-form");
+const signInForm = document.getElementById("sign-in-form");
 const m = document.getElementById("m");
 const messages = document.getElementById("messages");
 const membersCount = document.getElementById("members-count");
@@ -73,7 +74,7 @@ textModeBtn.addEventListener("click", function () {
   chatMode = "text";
 });
 
-closeModalBtn.onclick = function () {
+function signInFunction() {
   if (!userName.value.trim()) return;
 
   username = userName.value;
@@ -82,7 +83,9 @@ closeModalBtn.onclick = function () {
   socket.emit("register user", username);
 
   modal.style.display = "none";
-};
+}
+
+closeModalBtn.addEventListener("click", signInFunction);
 
 guestSignInBtn.addEventListener("click", function () {
   username =
@@ -96,10 +99,10 @@ guestSignInBtn.addEventListener("click", function () {
   modal.style.display = "none";
 });
 
-closeHelpModalBtn.onclick = function () {
+closeHelpModalBtn.addEventListener("click", function () {
   const helpModal = document.getElementById("help-modal");
   helpModal.style.display = "none";
-};
+});
 
 function runHelpCommand() {
   const helpModal = document.getElementById("help-modal");
@@ -247,6 +250,11 @@ form.addEventListener("submit", function (event) {
     id: userId,
   });
   m.value = "";
+});
+
+signInForm.addEventListener("submit", function (event) {
+  event.preventDefault();
+  signInFunction();
 });
 
 socket.on("chat message", function (data) {

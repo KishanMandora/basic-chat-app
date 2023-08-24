@@ -301,6 +301,7 @@ header {
 
 .modal-content,
 .help-modal-content {
+  width: 30rem;
   padding: .5rem;
   position: absolute;
   top: 50%;
@@ -308,7 +309,6 @@ header {
   transform: translate(-50%, -50%);
   background-color: #131421;
   color: #7091af;
-  width: max-content;
   border-radius: 5px;
   text-align: center;
 }
@@ -448,6 +448,11 @@ button#guest-sign-in:hover {
 
   .chat-title h1 {
     font-size: 1.125rem;
+  }
+
+  .modal-content,
+  .help-modal-content {
+    width: 20rem;
   }
 
   header {
