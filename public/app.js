@@ -58,22 +58,6 @@ const userId = crypto.randomUUID();
 let chatMode = "emoji";
 const remObj = {};
 
-emojiModeBtn.addEventListener("click", function () {
-  if (chatMode === "emoji") return;
-
-  emojiModeBtn.classList.add("active-switch");
-  textModeBtn.classList.remove("active-switch");
-  chatMode = "emoji";
-});
-
-textModeBtn.addEventListener("click", function () {
-  if (chatMode === "text") return;
-
-  textModeBtn.classList.add("active-switch");
-  emojiModeBtn.classList.remove("active-switch");
-  chatMode = "text";
-});
-
 function signInFunction() {
   if (!userName.value.trim()) return;
 
@@ -84,25 +68,6 @@ function signInFunction() {
 
   modal.style.display = "none";
 }
-
-closeModalBtn.addEventListener("click", signInFunction);
-
-guestSignInBtn.addEventListener("click", function () {
-  username =
-    devilFruits[Math.floor(Math.random() * 10)] +
-    " " +
-    onePieceCharacters[Math.floor(Math.random() * 10)];
-
-  chatUserTitle.innerText = username;
-  socket.emit("register user", username);
-
-  modal.style.display = "none";
-});
-
-closeHelpModalBtn.addEventListener("click", function () {
-  const helpModal = document.getElementById("help-modal");
-  helpModal.style.display = "none";
-});
 
 function runHelpCommand() {
   const helpModal = document.getElementById("help-modal");
@@ -163,7 +128,6 @@ function runClearCommand() {
 
 function runRemCommand(value) {
   const splitValue = value.trim().split(" ");
-  console.log(splitValue);
 
   if (splitValue.length <= 1) {
     addActionMessage("Please provide a name and value");
@@ -187,6 +151,41 @@ function runCalcCommand(value) {
   addDetailsToMessage(username, message);
   return;
 }
+
+emojiModeBtn.addEventListener("click", function () {
+  if (chatMode === "emoji") return;
+
+  emojiModeBtn.classList.add("active-switch");
+  textModeBtn.classList.remove("active-switch");
+  chatMode = "emoji";
+});
+
+textModeBtn.addEventListener("click", function () {
+  if (chatMode === "text") return;
+
+  textModeBtn.classList.add("active-switch");
+  emojiModeBtn.classList.remove("active-switch");
+  chatMode = "text";
+});
+
+closeModalBtn.addEventListener("click", signInFunction);
+
+guestSignInBtn.addEventListener("click", function () {
+  username =
+    devilFruits[Math.floor(Math.random() * 10)] +
+    " " +
+    onePieceCharacters[Math.floor(Math.random() * 10)];
+
+  chatUserTitle.innerText = username;
+  socket.emit("register user", username);
+
+  modal.style.display = "none";
+});
+
+closeHelpModalBtn.addEventListener("click", function () {
+  const helpModal = document.getElementById("help-modal");
+  helpModal.style.display = "none";
+});
 
 form.addEventListener("submit", function (event) {
   event.preventDefault();
@@ -300,8 +299,6 @@ socket.on("chat message", function (data) {
 
 socket.on("active users", function (users) {
   membersCount.innerText = users.length;
-
-  console.log("list is", membersList.children);
 
   while (membersList.firstChild) {
     membersList.removeChild(membersList.firstChild);
